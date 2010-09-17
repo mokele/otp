@@ -1481,7 +1481,14 @@ Other commands:
 				    erlang-font-lock-keywords-3 
 				    erlang-font-lock-keywords-4)
 	 nil nil ((?_ . "w")) erlang-beginning-of-clause
-	 (font-lock-mark-block-function . erlang-mark-clause))))
+	 (font-lock-mark-block-function . erlang-mark-clause)
+         (font-lock-syntactic-keywords 
+          ;; A dollar sign right before the double quote that ends a
+          ;; string is not a character escape.
+          . (("\"\\(?:[^\"]\\|\\\\\"\\)*\\(\\$\\)\"" 1 "w")
+             ;; And the dollar sign in $\" escapes two characters, not
+             ;; just one.
+             ("\\(\\$\\)\\\\\\\"" 1 "'"))))))
 
 
 
